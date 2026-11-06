@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "outbox",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  // Every 5 minutes: rescue queued or stuck drafts and send scheduled emails. Every 15: replies, follow-ups, nudges.
+  // It never sends anything a user has not approved.
+  "triggers": { "crons": ["*/5 * * * *"] },
+  "observability": { "enabled": true },
+  // Keep variables and secrets set in the Cloudflare dashboard across deploys
+  "keep_vars": true
+}
